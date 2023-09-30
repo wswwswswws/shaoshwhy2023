@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>一键网</title>
+  </head>
+  <body>
+    <h1>欢迎来到一键</h1>
+
+    <p>点击按钮，一键人生：</p>
+    <button onclick="getLocation()">一键</button>
+
+    <p id="demo"></p>
+
+    <script>
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+          document.getElementById("demo").innerHTML =
+            "浏览器不支持地理位置信息。";
+        }
+      }
+
+      function showPosition(position) {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        document.getElementById("demo").innerHTML =
+          "纬度: " + latitude + "<br>经度: " + longitude;
+      }
+
+      function getPosition(position) {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        return;
+      }
+
+      function showError(error) {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            document.getElementById("demo").innerHTML = "用户拒绝了位置请求。";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            document.getElementById("demo").innerHTML = "位置信息不可用。";
+            break;
+          case error.TIMEOUT:
+            document.getElementById("demo").innerHTML = "获取位置信息超时。";
+            break;
+          case error.UNKNOWN_ERROR:
+            document.getElementById("demo").innerHTML = "发生未知错误。";
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
