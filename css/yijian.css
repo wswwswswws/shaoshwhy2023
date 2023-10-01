@@ -1,0 +1,42 @@
+.yijianbutton {
+  /* 设置按钮的背景颜色，可以根据你的需求进行调整 */
+  background-color: #0088ff;
+
+  /* 设置按钮的前景颜色（文本颜色），可以根据背景颜色调整，确保对比度良好 */
+  color: #ffffff;
+
+  /* 设置按钮的边框样式 */
+  border: none;
+
+  /* 设置按钮的圆角，使其看起来更现代 */
+  border-radius: 10px;
+
+  /* 设置按钮的字体大小，可以根据按钮大小进行调整 */
+  font-size: 72px;
+
+  /* 设置按钮的内边距，增加按钮的可点击区域 */
+  padding: 20px 40px;
+
+  /* 添加按钮的阴影效果，增加层次感 */
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+
+  /* 添加按钮的过渡效果，使其在交互时更平滑 */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  /* 将按钮相对于全屏幕定位在最中央 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+/* 悬停时的样式，可以根据需要调整 */
+.yijianbutton:hover {
+  background-color: #0077cc;
+  transform: scale(1.05); /* 按钮在悬停时稍微放大 */
+}
+
+/* 激活（点击）时的样式，可以根据需要调整 */
+.yijianbutton:active {
+  background-color: #0066aa;
+  transform: scale(0.95); /* 按钮在点击时稍微缩小 */
+}
