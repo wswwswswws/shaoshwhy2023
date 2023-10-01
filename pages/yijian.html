@@ -4,50 +4,57 @@
     <title>一键网</title>
   </head>
   <body>
-    <h1>欢迎来到一键</h1>
+    <button onclick="getLocation()" class="yijianbutton">一键</button>
 
-    <p>点击按钮，一键人生：</p>
-    <button onclick="getLocation()">一键</button>
-
-    <p id="demo"></p>
+    <p id="locationInfo">
+      经度: <span id="longitude"></span>, 纬度: <span id="latitude"></span>
+    </p>
 
     <script>
+      // 创建一个存储位置信息的对象
+      let locationData = {
+        latitude: null,
+        longitude: null,
+      };
+
       function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition, showError);
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              // 获取经纬度
+              let latitude = position.coords.latitude;
+              let longitude = position.coords.longitude;
+
+              // 更新位置信息对象
+              locationData.latitude = latitude;
+              locationData.longitude = longitude;
+
+              // 更新页面上的位置信息显示
+              document.getElementById("latitude").textContent = latitude;
+              document.getElementById("longitude").textContent = longitude;
+
+              // 可以在这里使用位置信息进行其他操作
+            },
+            function (error) {
+              // 处理错误情况
+              switch (error.code) {
+                case error.PERMISSION_DENIED:
+                  alert("用户拒绝了位置请求");
+                  break;
+                case error.POSITION_UNAVAILABLE:
+                  alert("位置信息不可用");
+                  break;
+                case error.TIMEOUT:
+                  alert("获取位置信息超时");
+                  break;
+                case error.UNKNOWN_ERROR:
+                  alert("发生未知错误");
+                  break;
+              }
+            }
+          );
         } else {
-          document.getElementById("demo").innerHTML =
-            "浏览器不支持地理位置信息。";
-        }
-      }
-
-      function showPosition(position) {
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
-        document.getElementById("demo").innerHTML =
-          "纬度: " + latitude + "<br>经度: " + longitude;
-      }
-
-      function getPosition(position) {
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
-        return;
-      }
-
-      function showError(error) {
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            document.getElementById("demo").innerHTML = "用户拒绝了位置请求。";
-            break;
-          case error.POSITION_UNAVAILABLE:
-            document.getElementById("demo").innerHTML = "位置信息不可用。";
-            break;
-          case error.TIMEOUT:
-            document.getElementById("demo").innerHTML = "获取位置信息超时。";
-            break;
-          case error.UNKNOWN_ERROR:
-            document.getElementById("demo").innerHTML = "发生未知错误。";
-            break;
+          alert("浏览器不支持获取位置信息");
         }
       }
     </script>
